@@ -1,0 +1,86 @@
+html {
+    background-color: lightblue;
+    padding: 5px;
+    font-family: sans-serif;
+}
+
+.content {
+    width: 600px;
+    height: 100%;
+    margin: auto;
+    padding: 5px;
+}
+
+.header {
+    width: 100%;
+    height: 40px;
+}
+
+.header_text {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.search {
+    width: 250px;
+}
+
+.page_info {
+    float: right;
+}
+
+/*css for heroes list*/
+.heroes_list {
+    width: 100%;
+    padding-top: 10px;
+}
+
+
+table {
+    width: 100%;
+    text-align: left;
+}
+
+thead {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.th_name {
+    width: 60%;
+}
+
+.th_episode {
+    width: 40%;
+}
+
+tbody {
+    font-size: 16px;
+}
+
+td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/*css for footer*/
+.footer {
+    padding-top: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: gray;
+}
+
+.previous_heroes {
+    float: left;
+}
+
+.next_heroes {
+    float: right;
+}
