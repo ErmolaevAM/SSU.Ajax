@@ -1,20 +1,33 @@
-function test() {
-    var heroes = [];
-    
-    console.log('start');
-    
-    /*heroes = $.ajax({
+$(document).ready(function () {
+    loadStartInfo();
+});
+
+function loadStartInfo(params) {
+    $.ajax({
+        type: 'GET',
         url: 'http://demo.webility.ru/api',
-        success: function() {
-            alert('success');
+        async: true,
+        data: params,
+        success: function(data) {
+            changePageInfo(data.meta); 
+        },
+        error: function(error) {
+            console.log('Smth went wrong...');
         }
-    });*/
-    
-    heroes = $.getJSON('http://demo.webility.ru/api', function(result){
-        $.each(result, function(i, field){
-            console.log(field);
-        });
-    });
-    
-    console.log(heroes);
+    })
+}
+
+function changePageInfo(data) {
+    var $from = $('.from');
+    var $to = $('.to');
+    var $all = $('.all');
+    var jsonFrom = data.from;
+    var jsonLength = data.length;
+    $from.text(jsonFrom+1);
+    $to.text(jsonFrom+10);
+    $all.text(jsonLength);
+}
+
+function changeTableInfo(data) {
+
 }
