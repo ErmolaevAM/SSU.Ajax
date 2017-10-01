@@ -25,7 +25,22 @@ function changePageInfo(data) {
     var jsonFrom = data.from;
     var jsonLength = data.length;
     $from.text(jsonFrom+1);
-    $to.text(jsonFrom+10);
+    if (jsonFrom<=0) {
+        $('.previous_heroes').hide();
+    } else if ((jsonFrom+10)>jsonLength) {
+        $('.next_heroes').hide();
+    } else if (jsonFrom>=10 && (jsonFrom+10)<jsonLength) {
+        $('.previous_heroes').show();
+        $('.next_heroes').show();
+    } else if (jsonLength < 10) {
+        $('.previous_heroes').hide();
+        $('.next_heroes').hide();
+    }
+    if ((jsonFrom+10)<jsonLength) {
+        $to.text(jsonFrom+10);
+    } else {
+        $to.text(jsonLength);
+    }
     $all.text(jsonLength);
 }
 
@@ -39,5 +54,58 @@ function changeTableInfo(table) {
     $tbody.append(info.join(''));
 }
 
+function nextPage(params) {
+    var $from = $('.from').text();
+    var newFrom = parseFloat($from)+9;
+    var newUrl = 'http://demo.webility.ru/api?from='+newFrom;
+    $.ajax({
+        type: 'GET',
+        url: newUrl,
+        async: true,
+        data: params,
+        success: function(data) {
+            changePageInfo(data.meta); 
+            changeTableInfo(data.data);
+        },
+        error: function(error) {
+            console.log('Smth went wrong...');
+        }
+    })
+}
 
-function 
+function prevPage(params) {
+    var $from = $('.from').text();
+    var newFrom = parseFloat($from)-11;
+    var newUrl = 'http://demo.webility.ru/api?from='+newFrom;
+    $.ajax({
+        type: 'GET',
+        url: newUrl,
+        async: true,
+        data: params,
+        success: function(data) {
+            changePageInfo(data.meta); 
+            changeTableInfo(data.data);
+        },
+        error: function(error) {
+            console.log('Smth went wrong...');
+        }
+    })
+}
+
+function search(params) {
+    var $searchText = $('.search').val();
+    var newUrl = 'http://demo.webility.ru/api?q='+$searchText;
+    $.ajax({
+        type: 'GET',
+        url: newUrl,
+        async: true,
+        data: params,
+        success: function(data) {
+            changePageInfo(data.meta); 
+            changeTableInfo(data.data);
+        },
+        error: function(error) {
+            console.log('Smth went wrong...');
+        }
+    })
+}
