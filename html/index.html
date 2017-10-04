@@ -7,7 +7,6 @@
         <meta name="description" content="Ermolaxe. SSU, task one, ajax.">
         <link rel="stylesheet" href="../css/reset.css">
         <link rel="stylesheet" href="../css/style.css">
-        
     </head>
     <body>
         <div class="content">
@@ -18,11 +17,11 @@
                 <input type="text" class="search">
                 <button class="btn_search" onclick="search()">GO</button>
                 <span class="page_info">Shown 
-                    <span class="from"></span>
+                    <span id="from"></span>
                     -
-                    <span class="to"></span>
+                    <span id="to"></span>
                     of 
-                    <span class="all"></span>
+                    <span id="all"></span>
                 </span>
             </div>
             <div class="heroes_list">
@@ -41,6 +40,7 @@
                 <a href="#" class="next_heroes" onclick="nextPage()">Next &rarr;</a>
             </div>
         </div>
+        <br>
 
     </body>
     <script src="http://code.jquery.com/jquery-1.8.3.js" defer></script>

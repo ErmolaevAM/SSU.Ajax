@@ -2,39 +2,44 @@ $(document).ready(function () {
     loadStartInfo();
 });
 
-function loadStartInfo(params) {
+
+function sendAjax(url, parametr) {
     $.ajax({
         type: 'GET',
-        url: 'http://demo.webility.ru/api',
+        url: url,
         async: true,
-        data: params,
+        data: parametr,
         success: function(data) {
             changePageInfo(data.meta); 
             changeTableInfo(data.data);
         },
         error: function(error) {
-            console.log('Smth went wrong...');
+            console.log('Smth went wrong...');  
         }
     })
 }
 
+function loadStartInfo(params) {
+    sendAjax('http://demo.webility.ru/api', params);
+}
+
 function changePageInfo(data) {
-    var $from = $('.from');
-    var $to = $('.to');
-    var $all = $('.all');
+    var $from = $('#from');
+    var $to = $('#to');
+    var $all = $('#all');
     var jsonFrom = data.from;
     var jsonLength = data.length;
     $from.text(jsonFrom+1);
-    if (jsonFrom<=0) {
+    if (jsonFrom<=10) {
         $('.previous_heroes').hide();
-    } else if ((jsonFrom+10)>jsonLength) {
+        $('.next_heroes').show();
+    }
+    if ((jsonFrom+10)>jsonLength) {
         $('.next_heroes').hide();
-    } else if (jsonFrom>=10 && (jsonFrom+10)<jsonLength) {
+    }
+    if (jsonFrom>=10 && (jsonFrom+10)<jsonLength) {
         $('.previous_heroes').show();
         $('.next_heroes').show();
-    } else if (jsonLength < 10) {
-        $('.previous_heroes').hide();
-        $('.next_heroes').hide();
     }
     if ((jsonFrom+10)<jsonLength) {
         $to.text(jsonFrom+10);
@@ -58,54 +63,18 @@ function nextPage(params) {
     var $from = $('.from').text();
     var newFrom = parseFloat($from)+9;
     var newUrl = 'http://demo.webility.ru/api?from='+newFrom;
-    $.ajax({
-        type: 'GET',
-        url: newUrl,
-        async: true,
-        data: params,
-        success: function(data) {
-            changePageInfo(data.meta); 
-            changeTableInfo(data.data);
-        },
-        error: function(error) {
-            console.log('Smth went wrong...');
-        }
-    })
+    sendAjax(newUrl, params);
 }
 
 function prevPage(params) {
     var $from = $('.from').text();
     var newFrom = parseFloat($from)-11;
     var newUrl = 'http://demo.webility.ru/api?from='+newFrom;
-    $.ajax({
-        type: 'GET',
-        url: newUrl,
-        async: true,
-        data: params,
-        success: function(data) {
-            changePageInfo(data.meta); 
-            changeTableInfo(data.data);
-        },
-        error: function(error) {
-            console.log('Smth went wrong...');
-        }
-    })
+    sendAjax(newUrl, params);
 }
 
 function search(params) {
     var $searchText = $('.search').val();
     var newUrl = 'http://demo.webility.ru/api?q='+$searchText;
-    $.ajax({
-        type: 'GET',
-        url: newUrl,
-        async: true,
-        data: params,
-        success: function(data) {
-            changePageInfo(data.meta); 
-            changeTableInfo(data.data);
-        },
-        error: function(error) {
-            console.log('Smth went wrong...');
-        }
-    })
+    sendAjax(newUrl, params);
 }
